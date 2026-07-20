@@ -242,14 +242,13 @@ function ProjectCard({
         >
           <div className="project-card__image-inner">
             <Image
-              src={project.images[activeImage] ?? project.images[0]}
+              src={project.images[activeImage] ?? project.images[0] ?? ""}
               alt={project.imageAlt}
               fill
               sizes="(min-width: 1024px) 540px, (min-width: 768px) 45vw, 100vw"
               className="object-cover transition-opacity duration-300"
               priority={index < 2}
             />
-          </div>
 
           {hasMultiple ? (
             <div className="absolute bottom-2.5 left-1/2 flex -translate-x-1/2 gap-1.5">
