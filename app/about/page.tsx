@@ -11,8 +11,9 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = createMetadata({
-  title: "About",
-  description: "About me, background, and how to get in touch.",
+  title: "Tentang Saya",
+  description:
+    "Dwi Tri Rezeki — lulusan Ilmu Komunikasi UAD Yogyakarta konsentrasi Broadcasting. Fotografer, videografer, dan editor visual dengan pengalaman product photography, video konten brand, dan film dokumenter.",
   path: "/about",
 });
 

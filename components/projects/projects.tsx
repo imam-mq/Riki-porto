@@ -64,8 +64,12 @@ const PROJECTS: Project[] = [
     meta: "Photographer, Videographer & Editor, 2026 - Sekarang",
     tools: ["Lightroom", "Premiere Pro", "CapCut", "Canva"],
     driveUrl: DRIVE_URL,
-    imageRatio: 1024 / 768,
-    images: ["/images/projects/batik-enom.jpg"],
+    imageRatio: 4 / 5, // ganti dari 1024/768 karena 2 dari 3 foto barumu portrait
+    images: [
+      "/images/projects/batik-enom-1.jpg",
+      "/images/projects/batik-enom-2.jpg",
+      "/images/projects/batik-enom-3.jpg",
+    ],
     imageAlt: "Batik Enom product photography",
   },
   {
@@ -79,8 +83,12 @@ const PROJECTS: Project[] = [
     meta: "Photographer & Videographer, 2026",
     tools: ["Lightroom", "Premiere Pro", "CapCut"],
     driveUrl: DRIVE_URL,
-    imageRatio: 1024 / 768,
-    images: ["/images/projects/raga-enom.jpg"],
+    imageRatio: 4 / 5, // 2 dari 3 foto barumu portrait
+    images: [
+      "/images/projects/raga-enom-1.jpg",
+      "/images/projects/raga-enom-2.jpg",
+      "/images/projects/raga-enom-3.jpg",
+    ],
     imageAlt: "Raga Enom sportswear photography",
   },
   {
@@ -102,20 +110,6 @@ const PROJECTS: Project[] = [
     imageAlt: "Documentary film poster",
   },
   {
-    id: "game-show",
-    icon: Video,
-    iconLabel: "Game Show",
-    title: "Dokumentasi produksi acara game show kampus.",
-    description:
-      "Bertugas sebagai cameraman dalam produksi acara game show, menangani pengambilan gambar multi-kamera.",
-    meta: "Cameraman, 2023 - 2024",
-    tools: ["DSLR Camera", "Tripod", "Multi-cam Setup"],
-    driveUrl: DRIVE_URL,
-    imageRatio: 1024 / 768,
-    images: ["/images/projects/game-show.jpg"],
-    imageAlt: "Game show production behind the scenes",
-  },
-  {
     id: "kicknovation",
     icon: ShoppingBag,
     iconLabel: "Kicknovation",
@@ -125,8 +119,11 @@ const PROJECTS: Project[] = [
     meta: "Freelance Product Photographer, 2023 - Sekarang",
     tools: ["Lightroom", "Photoshop", "Canva"],
     driveUrl: DRIVE_URL,
-    imageRatio: 1024 / 768,
-    images: ["/images/projects/kicknovation.jpg"],
+    imageRatio: 4 / 5,
+    images: [
+      "/images/projects/kicknovation-1.jpg",
+      "/images/projects/kicknovation-2.jpg",
+    ],
     imageAlt: "Kicknovation sneaker product photography",
   },
   {

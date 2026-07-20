@@ -1,7 +1,13 @@
 "use client";
 
-import { RotateCcw } from "lucide-react";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { RotateCcw, Cloud, Camera, Video } from "lucide-react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+  type ComponentType,
+} from "react";
 
 type Chip = {
   label: string;
@@ -9,25 +15,53 @@ type Chip = {
   bg: string;
   fg: string;
   iconUrl?: string;
+  Icon?: ComponentType<{ className?: string }>;
 };
 
 const CHIPS: Chip[] = [
   {
-    label: "Figma",
-    slug: "figma",
+    label: "Microsoft Office",
+    slug: "microsoft-office",
+    bg: "#D83B01",
+    fg: "#ffffff",
+    iconUrl: "https://svgl.app/library/microsoft-office.svg",
+  },
+  {
+    label: "G-Suite",
+    slug: "google",
+    bg: "#4285F4",
+    fg: "#ffffff",
+    iconUrl: "https://svgl.app/library/google.svg",
+  },
+  {
+    label: "Adobe Creative",
+    slug: "adobe",
+    bg: "#DA1F26",
+    fg: "#ffffff",
+    iconUrl: "https://svgl.app/library/adobe.svg",
+  },
+  {
+    label: "Canva",
+    slug: "canva",
+    bg: "#00C4CC",
+    fg: "#ffffff",
+    iconUrl: "https://svgl.app/library/canva.svg",
+  },
+  { label: "Cloud", slug: "cloud", bg: "#0EA5E9", fg: "#ffffff", Icon: Cloud },
+  {
+    label: "Fotografi",
+    slug: "fotografi",
     bg: "#1f1f1f",
     fg: "#ffffff",
-    iconUrl: "https://svgl.app/library/figma.svg",
+    Icon: Camera,
   },
-  { label: "React", slug: "react", bg: "#1FB6CB", fg: "#ffffff" },
-  { label: "Next.js", slug: "nextdotjs", bg: "#1f1f1f", fg: "#ffffff" },
-  { label: "TypeScript", slug: "typescript", bg: "#2F74C0", fg: "#ffffff" },
-  { label: "shadcn/ui", slug: "shadcnui", bg: "#5b54ff", fg: "#ffffff" },
-  { label: "Cursor", slug: "cursor", bg: "#111111", fg: "#ffffff" },
-  { label: "GSAP", slug: "gsap", bg: "#0AE448", fg: "#0a0a0a" },
-  { label: "GitHub", slug: "github", bg: "#181717", fg: "#ffffff" },
-  { label: "Vercel", slug: "vercel", bg: "#0a0a0a", fg: "#ffffff" },
-  { label: "Tailwind CSS", slug: "tailwindcss", bg: "#2BBCF5", fg: "#ffffff" },
+  {
+    label: "Videografi",
+    slug: "videografi",
+    bg: "#7C3AED",
+    fg: "#ffffff",
+    Icon: Video,
+  },
 ];
 
 const CHIP_RADIUS = 14;
@@ -214,7 +248,7 @@ export function Stack(): ReactNode {
     <div className="flex flex-col gap-3">
       <div className="flex items-center gap-3">
         <h3 className="text-foreground text-[15px] font-semibold tracking-tight">
-          Stack
+          Tools
         </h3>
       </div>
 
@@ -281,14 +315,18 @@ function ChipPill({ chip }: { chip: Chip }): ReactNode {
         style={{ borderRadius: `${ICON_RADIUS}px` }}
         aria-hidden="true"
       >
-        <img
-          src={chip.iconUrl ?? `https://cdn.simpleicons.org/${chip.slug}`}
-          alt=""
-          width={18}
-          height={18}
-          className="h-5 w-5"
-          draggable={false}
-        />
+        {chip.Icon ? (
+          <chip.Icon className="h-5 w-5 text-foreground" />
+        ) : (
+          <img
+            src={chip.iconUrl ?? `https://cdn.simpleicons.org/${chip.slug}`}
+            alt=""
+            width={18}
+            height={18}
+            className="h-5 w-5"
+            draggable={false}
+          />
+        )}
       </span>
       <span>{chip.label}</span>
     </div>

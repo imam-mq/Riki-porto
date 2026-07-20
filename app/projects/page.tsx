@@ -6,10 +6,12 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = createMetadata({
-  title: "Projects",
-  description: "Selected work and case studies.",
+  title: "Portfolio Project",
+  description:
+    "Kumpulan project fotografi dan videografi Dwi Tri Rezeki: product photography, konten brand, dokumentasi event, hingga film dokumenter.",
   path: "/projects",
 });
+
 
 export default function ProjectsPage(): ReactNode {
   return (
