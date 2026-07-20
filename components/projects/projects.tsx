@@ -63,7 +63,7 @@ const PROJECTS: Project[] = [
     meta: "Photographer, Videographer & Editor, 2026 - Sekarang",
     tools: ["Lightroom", "Premiere Pro", "CapCut", "Canva"],
     driveUrl: DRIVE_URL,
-    imageRatio: 4 / 5, // ganti dari 1024/768 karena 2 dari 3 foto barumu portrait
+    imageRatio: 4 / 5,
     images: [
       "/images/projects/batik-enom-1.jpg",
       "/images/projects/batik-enom-2.jpg",
@@ -82,7 +82,7 @@ const PROJECTS: Project[] = [
     meta: "Photographer & Videographer, 2026",
     tools: ["Lightroom", "Premiere Pro", "CapCut"],
     driveUrl: DRIVE_URL,
-    imageRatio: 4 / 5, // 2 dari 3 foto barumu portrait
+    imageRatio: 4 / 5,
     images: [
       "/images/projects/raga-enom-1.jpg",
       "/images/projects/raga-enom-2.jpg",
@@ -249,6 +249,7 @@ function ProjectCard({
               className="object-cover transition-opacity duration-300"
               priority={index < 2}
             />
+          </div>
 
           {hasMultiple ? (
             <div className="absolute bottom-2.5 left-1/2 flex -translate-x-1/2 gap-1.5">
