@@ -5,7 +5,6 @@ import {
   Gem,
   Shirt,
   Footprints,
-  Video,
   Film,
   ShoppingBag,
   Aperture,
