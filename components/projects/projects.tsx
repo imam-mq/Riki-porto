@@ -16,6 +16,11 @@ import Link from "next/link";
 
 import { FadeIn } from "@/components/ui/motion-primitives";
 
+type MediaItem = {
+  type: "image" | "video";
+  src: string;
+};
+
 type Project = {
   id: string;
   icon: ComponentType<{ className?: string }>;
@@ -26,12 +31,15 @@ type Project = {
   tools: string[];
   driveUrl?: string;
   imageRatio: number;
-  images: string[]; // bisa 1 atau lebih
+  media: MediaItem[];
   imageAlt: string;
 };
 
 const DRIVE_URL =
   "https://drive.google.com/file/d/1m--8uexowd9Enuj62-IyO4cmwyt_2Nah/view?usp=sharing";
+
+const BATIK_ENOM_DRIVE_URL =
+  "https://drive.google.com/drive/folders/1yh1SP6Lna5pFAxbMQjfkp7uxDVRGu5wd";
 
 const PROJECTS: Project[] = [
   {
@@ -46,9 +54,9 @@ const PROJECTS: Project[] = [
     tools: ["Lightroom", "Photoshop", "Premiere Pro"],
     driveUrl: DRIVE_URL,
     imageRatio: 1024 / 768,
-    images: [
-      "/images/projects/sovia-jewelry-1.jpg",
-      "/images/projects/sovia-jewelry-2.jpg",
+    media: [
+      { type: "image", src: "/images/projects/sovia-jewelry-1.jpg" },
+      { type: "image", src: "/images/projects/sovia-jewelry-2.jpg" },
     ],
     imageAlt: "Sovia Jewelry product photography",
   },
@@ -62,12 +70,12 @@ const PROJECTS: Project[] = [
       "Menghasilkan konten visual untuk kampanye 'Proud to Wear Batik', termasuk foto lifestyle dan video promosi di media sosial.",
     meta: "Photographer, Videographer & Editor, 2026 - Sekarang",
     tools: ["Lightroom", "Premiere Pro", "CapCut", "Canva"],
-    driveUrl: DRIVE_URL,
+    driveUrl: BATIK_ENOM_DRIVE_URL,
     imageRatio: 4 / 5,
-    images: [
-      "/images/projects/batik-enom-1.jpg",
-      "/images/projects/batik-enom-2.jpg",
-      "/images/projects/batik-enom-3.jpg",
+    media: [
+      { type: "video", src: "/videos/projects/batik-enom.mp4" },
+      { type: "image", src: "/images/projects/batik-enom-1.jpg" },
+      { type: "image", src: "/images/projects/batik-enom-2.jpg" },
     ],
     imageAlt: "Batik Enom product photography",
   },
@@ -83,10 +91,9 @@ const PROJECTS: Project[] = [
     tools: ["Lightroom", "Premiere Pro", "CapCut"],
     driveUrl: DRIVE_URL,
     imageRatio: 4 / 5,
-    images: [
-      "/images/projects/raga-enom-1.jpg",
-      "/images/projects/raga-enom-2.jpg",
-      "/images/projects/raga-enom-3.jpg",
+    media: [
+      { type: "image", src: "/images/projects/raga-enom-1.jpg" },
+      { type: "image", src: "/images/projects/raga-enom-2.jpg" },
     ],
     imageAlt: "Raga Enom sportswear photography",
   },
@@ -102,9 +109,9 @@ const PROJECTS: Project[] = [
     tools: ["Premiere Pro", "DSLR Camera", "Boom Mic"],
     driveUrl: DRIVE_URL,
     imageRatio: 452 / 640,
-    images: [
-      "/images/projects/documentary-film-1.jpg",
-      "/images/projects/documentary-film-2.jpg",
+    media: [
+      { type: "image", src: "/images/projects/documentary-film-1.jpg" },
+      { type: "image", src: "/images/projects/documentary-film-2.jpg" },
     ],
     imageAlt: "Documentary film poster",
   },
@@ -119,9 +126,9 @@ const PROJECTS: Project[] = [
     tools: ["Lightroom", "Photoshop", "Canva"],
     driveUrl: DRIVE_URL,
     imageRatio: 4 / 5,
-    images: [
-      "/images/projects/kicknovation-1.jpg",
-      "/images/projects/kicknovation-2.jpg",
+    media: [
+      { type: "image", src: "/images/projects/kicknovation-1.jpg" },
+      { type: "image", src: "/images/projects/kicknovation-2.jpg" },
     ],
     imageAlt: "Kicknovation sneaker product photography",
   },
@@ -136,7 +143,7 @@ const PROJECTS: Project[] = [
     tools: ["Lightroom", "Photoshop"],
     driveUrl: DRIVE_URL,
     imageRatio: 1024 / 768,
-    images: ["/images/projects/random-photo.jpg"],
+    media: [{ type: "image", src: "/images/projects/random-photo.jpg" }],
     imageAlt: "Personal photography collection",
   },
 ];
@@ -199,8 +206,9 @@ function ProjectCard({
   index: number;
 }): ReactNode {
   const Icon = project.icon;
-  const [activeImage, setActiveImage] = useState(0);
-  const hasMultiple = project.images.length > 1;
+  const [activeIndex, setActiveIndex] = useState(0);
+  const hasMultiple = project.media.length > 1;
+  const current = project.media[activeIndex] ?? project.media[0];
 
   return (
     <FadeIn
@@ -237,27 +245,40 @@ function ProjectCard({
           style={{ aspectRatio: project.imageRatio }}
           onClick={() =>
             hasMultiple &&
-            setActiveImage((prev) => (prev + 1) % project.images.length)
+            setActiveIndex((prev) => (prev + 1) % project.media.length)
           }
         >
           <div className="project-card__image-inner">
-            <Image
-              src={project.images[activeImage] ?? project.images[0] ?? ""}
-              alt={project.imageAlt}
-              fill
-              sizes="(min-width: 1024px) 540px, (min-width: 768px) 45vw, 100vw"
-              className="object-cover transition-opacity duration-300"
-              priority={index < 2}
-            />
+            {current.type === "video" ? (
+              <video
+                key={current.src}
+                src={current.src}
+                className="h-full w-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+              />
+            ) : (
+              <Image
+                src={current.src}
+                alt={project.imageAlt}
+                fill
+                sizes="(min-width: 1024px) 540px, (min-width: 768px) 45vw, 100vw"
+                className="object-cover transition-opacity duration-300"
+                priority={index < 2}
+              />
+            )}
           </div>
 
           {hasMultiple ? (
             <div className="absolute bottom-2.5 left-1/2 flex -translate-x-1/2 gap-1.5">
-              {project.images.map((_, i) => (
+              {project.media.map((_, i) => (
                 <span
                   key={i}
                   className={`h-1.5 w-1.5 rounded-full transition-colors ${
-                    i === activeImage ? "bg-white" : "bg-white/40"
+                    i === activeIndex ? "bg-white" : "bg-white/40"
                   }`}
                 />
               ))}
