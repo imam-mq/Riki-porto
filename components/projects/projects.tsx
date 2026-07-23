@@ -257,7 +257,7 @@ function ProjectCard({
           }
         >
           <div className="project-card__image-inner">
-            {current.type === "video" ? (
+            {current?.type === "video" ? (
               <video
                 key={current.src}
                 src={current.src}
@@ -268,7 +268,7 @@ function ProjectCard({
                 playsInline
                 preload="metadata"
               />
-            ) : (
+            ) : current?.src ? (
               <Image
                 src={current.src}
                 alt={project.imageAlt}
@@ -277,7 +277,7 @@ function ProjectCard({
                 className="object-cover transition-opacity duration-300"
                 priority={index < 2}
               />
-            )}
+            ) : null}
           </div>
 
           {hasMultiple ? (
