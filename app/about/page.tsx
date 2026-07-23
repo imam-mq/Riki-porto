@@ -9,6 +9,9 @@ import { FadeIn } from "@/components/ui/motion-primitives";
 import { createMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import Image from "next/image";
+
+const PORTRAIT_SRC = "/images/about.jpeg";
 
 export const metadata: Metadata = createMetadata({
   title: "Tentang Saya",
@@ -24,22 +27,63 @@ export default function AboutPage(): ReactNode {
         <PolaroidStrip />
       </section>
 
-      <section className="mx-auto w-full max-w-160 px-6 pt-20 pb-16 sm:px-10 sm:pt-28 sm:pb-24">
+      <section className="mx-auto w-full max-w-4xl px-6 pt-20 pb-16 sm:px-10 sm:pt-28 sm:pb-24">
         <FadeIn delay={0.5}>
-          <div className="rounded-4xl border border-foreground/5 bg-foreground/1.5 p-8 sm:p-12 dark:bg-foreground/3">
-            <h1 className="font-serif text-[1.75rem] font-medium tracking-tight text-foreground sm:text-[2rem]">
-              Hello! I&rsquo;m <span className="border-b border-foreground/30 pb-0.5">Dwi Tri Rezeki</span>.
-            </h1>
-            <div className="mt-8 space-y-6 text-[17px] leading-[1.7] tracking-tight text-foreground/75 sm:text-[18px]">
-              <p>
-                Saya Dwi Tri Rezeki, lulusan <strong className="font-semibold text-foreground">Ilmu Komunikasi Universitas Ahmad Dahlan Yogyakarta</strong> dengan konsentrasi di bidang <strong className="font-semibold text-foreground">Broadcasting</strong>.
-              </p>
-              <p>
-                Saya merupakan orang kreatif yang menyukai <strong className="font-semibold text-foreground">fotografi</strong>, <strong className="font-semibold text-foreground">sinematografi</strong>, dan <strong className="font-semibold text-foreground">musik</strong>. Ketertarikan ini membawa saya untuk terus mengasah kemampuan visual storytelling di berbagai proyek.
-              </p>
-              <p>
-                Dibawah ini anda akan melihat <strong className="font-semibold text-foreground">pengalaman kerja dan project saya yang beragam</strong>, mulai dari product photography, video konten brand, hingga produksi film dokumenter.
-              </p>
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-start lg:gap-16">
+            {/* Kiri: heading + paragraf */}
+            <div>
+              <div className="mb-8 flex items-center gap-4">
+                <h1 className="font-serif text-2xl font-semibold tracking-tight text-foreground sm:text-[1.75rem]">
+                  About Me
+                </h1>
+                <span aria-hidden="true" className="h-px flex-1 bg-foreground/20" />
+              </div>
+
+              <div className="space-y-6 text-[17px] leading-[1.7] tracking-tight text-foreground/75 sm:text-[18px]">
+                <p>
+                  Saya Dwi Tri Rezeki, lulusan{" "}
+                  <strong className="font-semibold text-foreground">
+                    Ilmu Komunikasi Universitas Ahmad Dahlan Yogyakarta
+                  </strong>{" "}
+                  dengan konsentrasi di bidang{" "}
+                  <strong className="font-semibold text-foreground">Broadcasting</strong>.
+                </p>
+                <p>
+                  Saya merupakan orang kreatif yang menyukai{" "}
+                  <strong className="font-semibold text-foreground">fotografi</strong>,{" "}
+                  <strong className="font-semibold text-foreground">sinematografi</strong>, dan{" "}
+                  <strong className="font-semibold text-foreground">musik</strong>. Ketertarikan ini
+                  membawa saya untuk terus mengasah kemampuan visual storytelling di berbagai
+                  proyek.
+                </p>
+                <p>
+                  Dibawah ini anda akan melihat{" "}
+                  <strong className="font-semibold text-foreground">
+                    pengalaman kerja dan project saya yang beragam
+                  </strong>
+                  , mulai dari product photography, video konten brand, hingga produksi film
+                  dokumenter.
+                </p>
+              </div>
+            </div>
+
+            {/* Kanan: photo card */}
+            <div className="mx-auto w-full max-w-70 overflow-hidden rounded-3xl border border-foreground/10 bg-foreground/3 shadow-sm lg:mx-0">
+              <div className="relative aspect-[4/5] w-full overflow-hidden">
+                <Image
+                  src={PORTRAIT_SRC}
+                  alt="Dwi Tri Rezeki"
+                  fill
+                  sizes="(max-width: 1024px) 280px, 320px"
+                  className="object-cover"
+                />
+              </div>
+              <div className="px-5 py-4">
+                <p className="font-serif text-[15px] font-medium tracking-tight text-foreground">
+                  Dwi Tri Rezeki
+                </p>
+                <p className="mt-0.5 text-sm text-foreground/50">Fotografer &amp; Videografer</p>
+              </div>
             </div>
           </div>
         </FadeIn>

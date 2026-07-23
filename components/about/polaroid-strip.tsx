@@ -2,30 +2,61 @@
 
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { useRef, useSyncExternalStore, type ReactNode } from "react";
+import Image from "next/image";
 
-import { DottedPattern } from "@/components/ui/dotted-pattern";
-
-type Polaroid = {
+type MediaItem = {
   id: string;
+  type: "image" | "video";
+  src: string;
   rotate: number;
+  alt?: string;
 };
 
-const PHOTOS: Polaroid[] = [
-  { id: "a", rotate: -8 },
-  { id: "b", rotate: 6 },
-  { id: "c", rotate: -4 },
-  { id: "d", rotate: 7 },
-  { id: "e", rotate: -6 },
-  { id: "f", rotate: 5 },
+// Ganti/isi array ini dengan foto & video hasil karya kamu.
+// Urutan bebas — boleh selang-seling image/video sesuai yang paling
+// "menjual" untuk ditampilkan duluan.
+const MEDIA: MediaItem[] = [
+  { id: "a", type: "video", src: "/videos/projects/raga-enom.mp4", rotate: -8 },
+  { id: "b", type: "image", src: "/images/projects/raga-enom-1.jpg", rotate: 6, alt: "Raga Enom — product shot" },
+  { id: "c", type: "image", src: "/images/projects/raga-enom-1.jpg", rotate: -4, alt: "Project 2" },
+  { id: "d", type: "video", src: "/videos/projects/raga-enom.mp4", rotate: 7 },
+  { id: "e", type: "image", src: "/images/projects/raga-enom-1.jpg", rotate: -6, alt: "Project 4" },
+  { id: "f", type: "video", src: "/videos/projects/raga-enom.mp4", rotate: 5, alt: "Project 5" },
 ];
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+function MediaFill({ item }: { item: MediaItem }): ReactNode {
+  if (item.type === "video") {
+    return (
+      <video
+        src={item.src}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        className="h-full w-full object-cover"
+      />
+    );
+  }
+
+  return (
+    <Image
+      src={item.src}
+      alt={item.alt ?? ""}
+      fill
+      sizes="(max-width: 640px) 40vw, 180px"
+      className="object-cover"
+    />
+  );
+}
+
 function PolaroidCard({
-  photo,
+  item,
   index,
 }: {
-  photo: Polaroid;
+  item: MediaItem;
   index: number;
 }): ReactNode {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -60,8 +91,8 @@ function PolaroidCard({
       ref={ref}
       onPointerMove={handleMove}
       onPointerLeave={handleLeave}
-      initial={{ opacity: 0, y: -120, filter: "blur(18px)", rotate: photo.rotate }}
-      animate={{ opacity: 1, y: 0, filter: "blur(0px)", rotate: photo.rotate }}
+      initial={{ opacity: 0, y: -120, filter: "blur(18px)", rotate: item.rotate }}
+      animate={{ opacity: 1, y: 0, filter: "blur(0px)", rotate: item.rotate }}
       transition={{
         duration: 0.9,
         delay: 0.05 + index * 0.08,
@@ -70,11 +101,23 @@ function PolaroidCard({
       style={{
         x: tx,
         y: ty,
-        rotate: photo.rotate,
+        rotate: item.rotate,
       }}
       className="relative aspect-[3/4] w-[clamp(6rem,11vw,9rem)] shrink-0 overflow-hidden rounded-2xl border-6 border-neutral-300/40 bg-white p-1.5 dark:border-white/15 dark:bg-neutral-900"
     >
-      <DottedPattern className="relative h-full w-full overflow-hidden rounded-xl" />
+      <div className="relative h-full w-full overflow-hidden rounded-xl bg-neutral-100 dark:bg-neutral-800">
+        <MediaFill item={item} />
+        {item.type === "video" ? (
+          <span
+            aria-hidden="true"
+            className="absolute bottom-1.5 right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm"
+          >
+            <svg viewBox="0 0 24 24" className="h-2.5 w-2.5 fill-current">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </span>
+        ) : null}
+      </div>
     </motion.div>
   );
 }
@@ -92,8 +135,8 @@ export function PolaroidStrip(): ReactNode {
 
   return (
     <div className="flex flex-wrap w-full items-start justify-center gap-1 px-4 sm:gap-1.5 sm:px-8">
-      {PHOTOS.map((photo, i) => (
-        <PolaroidCard key={photo.id} photo={photo} index={i} />
+      {MEDIA.map((item, i) => (
+        <PolaroidCard key={item.id} item={item} index={i} />
       ))}
     </div>
   );

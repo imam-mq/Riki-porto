@@ -41,6 +41,12 @@ const DRIVE_URL =
 const BATIK_ENOM_DRIVE_URL =
   "https://drive.google.com/drive/folders/1yh1SP6Lna5pFAxbMQjfkp7uxDVRGu5wd";
 
+const SOVIA_JEWELRY_DRIVE_URL =
+  "https://drive.google.com/drive/folders/1GMTET_CmizpuuByMZwhvvWp1iga6SCB_";
+
+const RAGA_ENOM_DRIVE_URL =
+  "https://drive.google.com/drive/folders/1yh1SP6Lna5pFAxbMQjfkp7uxDVRGu5wd";
+
 const PROJECTS: Project[] = [
   {
     id: "sovia-jewelry",
@@ -52,9 +58,10 @@ const PROJECTS: Project[] = [
       "Menangani product photography dan video konten sosial media untuk PT. Sovia Dwi Karya, termasuk konten promosi dan katalog produk.",
     meta: "Photographer & Videographer, 2025 - 2026",
     tools: ["Lightroom", "Photoshop", "Premiere Pro"],
-    driveUrl: DRIVE_URL,
+    driveUrl: SOVIA_JEWELRY_DRIVE_URL,
     imageRatio: 1024 / 768,
     media: [
+      { type: "video", src: "/videos/projects/sovia-jewelry.mp4" },
       { type: "image", src: "/images/projects/sovia-jewelry-1.jpg" },
       { type: "image", src: "/images/projects/sovia-jewelry-2.jpg" },
     ],
@@ -89,9 +96,10 @@ const PROJECTS: Project[] = [
       "Foto produk jersey dan aksesoris, serta liputan video event seperti Mandiri Jogja Marathon dengan konsep #movewithculture.",
     meta: "Photographer & Videographer, 2026",
     tools: ["Lightroom", "Premiere Pro", "CapCut"],
-    driveUrl: DRIVE_URL,
+    driveUrl: RAGA_ENOM_DRIVE_URL,
     imageRatio: 4 / 5,
     media: [
+      { type: "video", src: "/videos/projects/raga-enom.mp4" },
       { type: "image", src: "/images/projects/raga-enom-1.jpg" },
       { type: "image", src: "/images/projects/raga-enom-2.jpg" },
     ],
